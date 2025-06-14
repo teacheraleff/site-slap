@@ -156,7 +156,7 @@
 <body class="antialiased">
     <div x-data="{ currentPage: 'inicio', isModalOpen: false, selectedPlan: '', mobileMenuOpen: false }">
         <!-- Menu Superior -->
-        <header class="sticky top-0 z-50 py-4 bg-white/90 backdrop-blur-md shadow-sm">
+        <header class="sticky top-0 z-40 py-4 bg-white/90 backdrop-blur-md shadow-sm">
             <nav class="container mx-auto px-6 flex justify-between items-center">
                 <div>
                     <a href="#" @click.prevent="currentPage = 'inicio'"><img src="https://res.cloudinary.com/dqfi22uz0/image/upload/v1749844214/SLAP_TIPO_PRETO_l5cziy.png" alt="SLAP Logo" class="h-8 w-auto"></a>
@@ -179,28 +179,27 @@
                     </button>
                 </div>
             </nav>
-
-            <!-- Painel do Menu Mobile -->
-            <div x-show="mobileMenuOpen" x-transition class="fixed inset-0 bg-black/50 z-40 md:hidden" @click="mobileMenuOpen = false"></div>
-            <div x-show="mobileMenuOpen" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="transform translate-x-full" x-transition:enter-end="transform translate-x-0" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="transform translate-x-0" x-transition:leave-end="transform translate-x-full" class="fixed top-0 right-0 h-full w-72 bg-white z-50 p-6 md:hidden">
-                <div class="flex justify-between items-center mb-8">
-                     <a href="#" @click.prevent="currentPage = 'inicio'; mobileMenuOpen = false"><img src="https://res.cloudinary.com/dqfi22uz0/image/upload/v1749844214/SLAP_TIPO_PRETO_l5cziy.png" alt="SLAP Logo" class="h-8 w-auto"></a>
-                     <button @click="mobileMenuOpen = false">
-                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                     </button>
-                </div>
-                <nav class="flex flex-col space-y-4">
-                     <a @click="currentPage = 'inicio'; mobileMenuOpen = false" class="nav-link text-lg border-b pb-2">Início</a>
-                     <a @click="currentPage = 'testimonials'; mobileMenuOpen = false" class="nav-link text-lg border-b pb-2">Depoimentos</a>
-                     <a @click="currentPage = 'method'; mobileMenuOpen = false" class="nav-link text-lg border-b pb-2">Método</a>
-                     <a @click="currentPage = 'history'; mobileMenuOpen = false" class="nav-link text-lg border-b pb-2">História</a>
-                     <a @click="currentPage = 'work'; mobileMenuOpen = false" class="nav-link text-lg border-b pb-2">Trabalhe Conosco</a>
-                     <a @click="currentPage = 'creator'; mobileMenuOpen = false" class="nav-link text-lg border-b pb-2">Seja Creator</a>
-                     <hr class="my-4">
-                     <a href="https://placement-slap.netlify.app/" target="_blank" class="button-primary w-full justify-center">Teste seu Nível</a>
-                </nav>
-            </div>
         </header>
+
+        <!-- Painel do Menu Mobile (Overlay) -->
+        <div x-show="mobileMenuOpen" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 z-50 bg-stone-900 text-white p-6 flex flex-col" style="display: none;">
+            <div class="flex justify-between items-center mb-12">
+                 <a href="#" @click.prevent="currentPage = 'inicio'; mobileMenuOpen = false"><img src="https://res.cloudinary.com/dqfi22uz0/image/upload/v1749543469/SLAP_FAVICON_AMARELO_coilvj.png" alt="SLAP Logo" class="h-8 w-auto"></a>
+                 <button @click="mobileMenuOpen = false">
+                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                 </button>
+            </div>
+            <nav class="flex flex-col space-y-6 text-center">
+                 <a @click="currentPage = 'inicio'; mobileMenuOpen = false" class="text-2xl font-bold hover:text-[#F1D24B] transition-colors">Início</a>
+                 <a @click="currentPage = 'testimonials'; mobileMenuOpen = false" class="text-2xl font-bold hover:text-[#F1D24B] transition-colors">Depoimentos</a>
+                 <a @click="currentPage = 'method'; mobileMenuOpen = false" class="text-2xl font-bold hover:text-[#F1D24B] transition-colors">Método</a>
+                 <a @click="currentPage = 'history'; mobileMenuOpen = false" class="text-2xl font-bold hover:text-[#F1D24B] transition-colors">História</a>
+                 <a @click="currentPage = 'work'; mobileMenuOpen = false" class="text-2xl font-bold hover:text-[#F1D24B] transition-colors">Trabalhe Conosco</a>
+                 <a @click="currentPage = 'creator'; mobileMenuOpen = false" class="text-2xl font-bold hover:text-[#F1D24B] transition-colors">Seja Creator</a>
+                 <hr class="my-6 border-stone-700">
+                 <a href="https://placement-slap.netlify.app/" target="_blank" class="button-primary w-full justify-center">Teste seu Nível</a>
+            </nav>
+        </div>
 
         <main>
             
@@ -218,7 +217,7 @@
                     </div>
                 </section>
                 
-                <div class="container mx-auto px-6 mt-16 space-y-12">
+                <div class="container mx-auto px-6 mt-12 space-y-12">
                     <section>
                          <div class="bg-white p-8 md:p-12 rounded-3xl shadow-lg border border-stone-200">
                             <h2 class="text-4xl md:text-5xl mb-12 text-center">Planos para a Sua Evolução</h2>
@@ -273,7 +272,7 @@
                         </div>
                      </section>
 
-                    <section>
+                    <section class="pb-16">
                         <h2 class="text-3xl md:text-4xl mb-12 text-center">O que nossos alunos dizem</h2>
                         <div class="grid md:grid-cols-2 gap-8">
                             <div>
