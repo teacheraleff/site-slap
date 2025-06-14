@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SLAP Inglês: Acelerando a sua Fluência</title>
+    
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dqfi22uz0/image/upload/v1749543469/SLAP_FAVICON_AMARELO_coilvj.png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Alpine.js for interactivity -->
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: #fafaf9; /* stone-50 */
+            color: #1c1917; /* stone-900 */
+        }
+        .highlight-yellow {
+            color: #F1D24B;
+        }
+        .button-primary {
+             background-color: #F1D24B; 
+             color: #1c1917;
+             border: 2px solid #F1D24B;
+             padding: 0.875rem 2rem;
+             border-radius: 9999px; 
+             font-weight: 700; 
+             cursor: pointer; 
+             transition: all 0.2s ease-in-out;
+             display: inline-flex;
+             align-items: center;
+             gap: 0.5rem;
+             text-decoration: none;
+        }
+        .button-primary:hover:not(:disabled) {
+            background-color: #eab308;
+            border-color: #eab308;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .nav-link {
+            font-weight: 700;
+            color: #57534e; /* stone-600 */
+            transition: color 0.2s;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #F1D24B;
+        }
+        /* Carousel Styles */
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-250px * 7))}
+        }
+        .slider {
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+        .slider::before,
+        .slider::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100px;
+            z-index: 2;
+        }
+        .slider::before {
+            left: 0;
+            background: linear-gradient(to right, #fafaf9 0%, rgba(250, 250, 249, 0) 100%);
+        }
+        .slider::after {
+            right: 0;
+            background: linear-gradient(to left, #fafaf9 0%, rgba(250, 250, 249, 0) 100%);
+        }
+        .slide-track {
+            animation: scroll 30s linear infinite;
+            display: flex;
+            width: calc(250px * 14);
+        }
+        .slide {
+            height: 300px;
+            width: 250px;
+            padding: 15px;
+            position: relative;
+        }
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+        }
+        .teacher-name-tag {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            right: 15px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+            color: white;
+            text-align: center;
+            padding: 1.5rem 1rem 0.75rem 1rem;
+            font-weight: 600;
+            border-bottom-left-radius: 1rem;
+            border-bottom-right-radius: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .slide:hover .teacher-name-tag {
+            opacity: 1;
+        }
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background-color: #f5f5f4;
+            border: 2px solid #e7e5e4;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            color: #1c1917;
+            transition: border-color 0.2s, background-color 0.2s;
+            box-sizing: border-box;
+        }
+        .form-input:focus {
+            outline: none;
+            background-color: #ffffff;
+            border-color: #F1D24B;
+        }
+        .testimonial-video {
+            width: 100%;
+            height: auto;
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="antialiased" x-data="{ currentPage: 'inicio', isModalOpen: false, selectedPlan: '' }">
+
+    <!-- Menu Superior -->
+    <header x-data="{ mobileMenuOpen: false }" class="sticky top-0 z-50 py-4 bg-white/90 backdrop-blur-md shadow-sm">
+        <nav class="container mx-auto px-6 flex justify-between items-center">
+            <div>
+                <a href="#" @click.prevent="currentPage = 'inicio'"><img src="https://res.cloudinary.com/dqfi22uz0/image/upload/v1749844214/SLAP_TIPO_PRETO_l5cziy.png" alt="SLAP Logo" class="h-8 w-auto"></a>
+            </div>
+            
+            <!-- Menu Desktop -->
+            <div class="hidden md:flex items-center gap-8">
+                <a @click="currentPage = 'inicio'" class="nav-link">Início</a>
+                <a @click="currentPage = 'testimonials'" class="nav-link">Depoimentos</a>
+                <a @click="currentPage = 'method'" class="nav-link">Nosso Método</a>
+                <a @click="currentPage = 'history'" class="nav-link">Nossa História</a>
+                <a @click="currentPage = 'work'" class="nav-link">Trabalhe Conosco</a>
+                <a @click="currentPage = 'creator'" class="nav-link">Seja Creator</a>
+            </div>
+
+            <!-- Botão do Menu Mobile -->
+            <div class="md:hidden">
+                <button @click="mobileMenuOpen = !mobileMenuOpen">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Painel do Menu Mobile -->
+        <div x-show="mobileMenuOpen" x-transition class="fixed inset-0 bg-black/50 z-40 md:hidden" @click="mobileMenuOpen = false"></div>
+        <div x-show="mobileMenuOpen" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="transform translate-x-full" x-transition:enter-end="transform translate-x-0" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="transform translate-x-0" x-transition:leave-end="transform translate-x-full" class="fixed top-0 right-0 h-full w-72 bg-white z-50 p-6 md:hidden">
+            <div class="flex justify-between items-center mb-8">
+                 <a href="#" @click.prevent="currentPage = 'inicio'; mobileMenuOpen = false"><img src="https://res.cloudinary.com/dqfi22uz0/image/upload/v1749844214/SLAP_TIPO_PRETO_l5cziy.png" alt="SLAP Logo" class="h-8 w-auto"></a>
+                 <button @click="mobileMenuOpen = false">
+                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                 </button>
+            </div>
+            <nav class="flex flex-col space-y-4">
+                 <a @click="currentPage = 'inicio'; mobileMenuOpen = false" class="nav-link text-lg border-b pb-2">Início</a>
+                 <a @click="currentPage = 'testimonials'; mobileMenuOpen = false" class="nav-link text-lg border-b pb-2">Depoimentos</a>
+                 <a @click="currentPage = 'method'; mobileMenuOpen = false" class="nav-link text-lg border-b pb-2">Nosso Método</a>
+                 <a @click="currentPage = 'history'; mobileMenuOpen = false" class="nav-link text-lg border-b pb-2">Nossa História</a>
+                 <a @click="currentPage = 'work'; mobileMenuOpen = false" class="nav-link text-lg border-b pb-2">Trabalhe Conosco</a>
+                 <a @click="currentPage = 'creator'; mobileMenuOpen = false" class="nav-link text-lg border-b pb-2">Seja Creator</a>
+                 <hr class="my-4">
+                 <a href="https://placement-slap.netlify.app/" target="_blank" class="button-primary w-full justify-center">Teste seu Nível</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        
+        <!-- PÁGINA INICIAL -->
+        <div x-show="currentPage === 'inicio'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100">
+            <!-- Hero Banner -->
+            <section class="bg-[#F1D24B]">
+                <div class="container mx-auto px-6 text-center py-20 md:py-32">
+                    <h1 class="text-4xl md:text-6xl font-extrabold leading-tight text-stone-900">Sua fluência começa no SLAP.</h1>
+                    <div class="mt-8">
+                        <a href="https://wa.me/message/VJROWLFO5Z5KF1" target="_blank" class="button-primary text-lg bg-stone-900 text-white border-stone-900 hover:bg-black hover:border-black">
+                            Fale com a gente
+                        </a>
+                    </div>
+                </div>
+            </section>
+            
+            <div class="container mx-auto px-6 mt-16">
+                <section class="py-16">
+                     <div class="bg-white p-8 md:p-12 rounded-3xl shadow-lg border border-stone-200">
+                        <h2 class="text-3xl md:text-4xl font-extrabold mb-12 text-center">Planos para a Sua Evolução</h2>
+                        <div class="flex flex-col md:flex-row gap-8 items-stretch">
+                            <div class="md:w-1/2 bg-[#84C7DF] text-stone-900 p-8 rounded-2xl flex flex-col text-center">
+                                <h3 class="text-3xl font-extrabold">Plano Turma</h3>
+                                <p class="text-4xl font-extrabold my-4">R$250<span class="text-base font-medium text-stone-700">/mês</span></p>
+                                <ul class="space-y-2 text-stone-800 text-left mx-auto mb-6 flex-grow">
+                                    <li class="flex items-center"><svg class="w-5 h-5 text-stone-800 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>36 aulas ao vivo</li>
+                                    <li class="flex items-center"><svg class="w-5 h-5 text-stone-800 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>Turmas com até 10 alunos</li>
+                                    <li class="flex items-center"><svg class="w-5 h-5 text-stone-800 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>Material incluso</li>
+                                </ul>
+                                <button @click="isModalOpen = true; selectedPlan = 'Plano Turma'" class="button-primary justify-center bg-stone-800 text-white hover:bg-black border-stone-800">Quero este</button>
+                            </div>
+                             <div class="md:w-1/2 bg-[#FF5C3D] text-white p-8 rounded-2xl flex flex-col text-center">
+                                <h3 class="text-3xl font-extrabold">Plano VIP</h3>
+                                <p class="text-4xl font-extrabold my-4">R$516<span class="text-base font-medium text-stone-200">/mês</span></p>
+                                 <ul class="space-y-2 text-stone-100 text-left mx-auto mb-6 flex-grow">
+                                    <li class="flex items-center"><svg class="w-5 h-5 text-white mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>Aulas individuais e flexíveis</li>
+                                    <li class="flex items-center"><svg class="w-5 h-5 text-white mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>Foco nos seus objetivos</li>
+                                    <li class="flex items-center"><svg class="w-5 h-5 text-white mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>Acompanhamento personalizado</li>
+                                </ul>
+                                <button @click="isModalOpen = true; selectedPlan = 'Plano VIP'" class="button-primary justify-center bg-white text-stone-900 border-white hover:bg-stone-200 hover:border-stone-200">Quero este</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                 <section class="py-16">
+                    <h2 class="text-3xl md:text-4xl font-extrabold mb-12 text-center">Estude com os melhores professores da internet</h2>
+                    <div class="slider">
+                        <div class="slide-track">
+                            <div class="slide group"><img src="https://res.cloudinary.com/dqfi22uz0/image/upload/v1749539157/ALEFF_tkqeue.png" alt="Professor Aleff Rodrigues"><div class="teacher-name-tag">Aleff Rodrigues</div></div>
+                            <div class="slide group"><img src="https://res.cloudinary.com/dqfi22uz0/image/upload/v1749539167/LETICIA_yynsvs.png" alt="Professora Letícia Laganaro"><div class="teacher-name-tag">Letícia Laganaro</div></div>
+                            <div class="slide group"><img src="https://res.cloudinary.com/dqfi22uz0/image/upload/v1749539187/VICTOR_epmdhu.png" alt="Professor Victor Teixeira"><div class="teacher-name-tag">Victor Teixeira</div></div>
+                            <div class="slide group"><img src="https://res.cloudinary.com/dqfi22uz0/image/upload/v1749539157/ARELI_tpmhpe.png" alt="Professora Areli Nunes"><div class="teacher-name-tag">Areli Nunes</div></div>
+                            <div class="slide group"><img src="https://res.cloudinary.com/dqfi22uz0/image/upload/v1749539258/FELIPE_roxay8.png" alt="Professor Felipe Carnelós"><div class="teacher-name-tag">Felipe Carnelós</div></div>
+                            <div class="slide group"><img src="https://res.cloudinary.com/dqfi22uz0/image/upload/v1749539175/JAYNNI_ssoh5j.png" alt="Professora Jaynni Nascimento"><div class="teacher-name-tag">Jaynni Nascimento</div></div>
+                            <div class="slide group"><img src="https://res.cloudinary.com/dqfi22uz0/image/upload/v1749539157/ANAEL_qpeask.png" alt="Professor Anael Castilho"><div class="teacher-name-tag">Anael Castilho</div></div>
+                            <!-- Duplicados -->
+                            <div class="slide group"><img src="https://res.cloudinary.com/dqfi22uz0/image/upload/v1749539157/ALEFF_tkqeue.png" alt="Professor Aleff Rodrigues"><div class="teacher-name-tag">Aleff Rodrigues</div></div>
+                            <div class="slide group"><img src="https://res.cloudinary.com/dqfi22uz0/image/upload/v1749539167/LETICIA_yynsvs.png" alt="Professora Letícia Laganaro"><div class="teacher-name-tag">Letícia Laganaro</div></div>
+                            <div class="slide group"><img src="https://res.cloudinary.com/dqfi22uz0/image/upload/v1749539187/VICTOR_epmdhu.png" alt="Professor Victor Teixeira"><div class="teacher-name-tag">Victor Teixeira</div></div>
+                            <div class="slide group"><img src="https://res.cloudinary.com/dqfi22uz0/image/upload/v1749539157/ARELI_tpmhpe.png" alt="Professora Areli Nunes"><div class="teacher-name-tag">Areli Nunes</div></div>
+                            <div class="slide group"><img src="https://res.cloudinary.com/dqfi22uz0/image/upload/v1749539258/FELIPE_roxay8.png" alt="Professor Felipe Carnelós"><div class="teacher-name-tag">Felipe Carnelós</div></div>
+                            <div class="slide group"><img src="https://res.cloudinary.com/dqfi22uz0/image/upload/v1749539175/JAYNNI_ssoh5j.png" alt="Professora Jaynni Nascimento"><div class="teacher-name-tag">Jaynni Nascimento</div></div>
+                            <div class="slide group"><img src="https://res.cloudinary.com/dqfi22uz0/image/upload/v1749539157/ANAEL_qpeask.png" alt="Professor Anael Castilho"><div class="teacher-name-tag">Anael Castilho</div></div>
+                        </div>
+                    </div>
+                 </section>
+
+                <section class="py-16">
+                    <h2 class="text-3xl md:text-4xl font-extrabold mb-12 text-center">O que nossos alunos dizem</h2>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <video controls class="testimonial-video" src="https://res.cloudinary.com/dqfi22uz0/video/upload/v1749863509/gabrielle_bernardelli_cjicyq.mov" poster="https://res.cloudinary.com/dqfi22uz0/video/upload/so_0/v1749863509/gabrielle_bernardelli_cjicyq.jpg"></video>
+                        </div>
+                        <div>
+                            <video controls class="testimonial-video" src="https://res.cloudinary.com/dqfi22uz0/video/upload/v1749863506/milena_guimaraes_rdqwas.mov" poster="https://res.cloudinary.com/dqfi22uz0/video/upload/so_0/v1749863506/milena_guimaraes_rdqwas.jpg"></video>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- CONTEÚDO DAS OUTRAS PÁGINAS -->
+        <div x-show="currentPage !== 'inicio'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" style="display: none;">
+            <button @click="currentPage = 'inicio'" class="mb-8 font-semibold text-stone-600 hover:text-black flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                Voltar para o Início
+            </button>
+            <div class="bg-white p-8 md:p-12 rounded-3xl shadow-lg border border-stone-200">
+                <!-- Conteúdo dinâmico aqui -->
+                <div x-show="currentPage === 'testimonials'">
+                     <h2 class="text-3xl md:text-4xl font-extrabold mb-12 text-center">O que nossos alunos dizem</h2>
+                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div>
+                            <video controls class="testimonial-video mb-4" src="https://res.cloudinary.com/dqfi22uz0/video/upload/v1749863509/gabrielle_bernardelli_cjicyq.mov" poster="https://res.cloudinary.com/dqfi22uz0/video/upload/so_0/v1749863509/gabrielle_bernardelli_cjicyq.jpg"></video>
+                            <h4 class="font-bold">Gabrielle Bernardelli</h4>
+                            <p class="text-sm text-stone-600">"O método do SLAP me deu a confiança que eu precisava para finalmente falar inglês sem medo."</p>
+                        </div>
+                         <div>
+                            <video controls class="testimonial-video mb-4" src="https://res.cloudinary.com/dqfi22uz0/video/upload/v1749863506/milena_guimaraes_rdqwas.mov" poster="https://res.cloudinary.com/dqfi22uz0/video/upload/so_0/v1749863506/milena_guimaraes_rdqwas.jpg"></video>
+                            <h4 class="font-bold">Milena Guimarães</h4>
+                            <p class="text-sm text-stone-600">"As aulas são divertidas e os professores são incríveis. Nunca pensei que aprenderia tanto em tão pouco tempo!"</p>
+                        </div>
+                        <div>
+                            <video controls class="testimonial-video mb-4" src="https://res.cloudinary.com/dqfi22uz0/video/upload/v1749863506/andre%CC%81_domingues_gwvqtp.mov" poster="https://res.cloudinary.com/dqfi22uz0/video/upload/so_0/v1749863506/andre%CC%81_domingues_gwvqtp.jpg"></video>
+                            <h4 class="font-bold">André Domingues</h4>
+                            <p class="text-sm text-stone-600">"Consegui a minha promoção no trabalho graças ao inglês que desenvolvi aqui. Recomendo demais."</p>
+                        </div>
+                        <div>
+                            <video controls class="testimonial-video mb-4" src="https://res.cloudinary.com/dqfi22uz0/video/upload/v1749863504/ana_karolina_yhde7h.mov" poster="https://res.cloudinary.com/dqfi22uz0/video/upload/so_0/v1749863504/ana_karolina_yhde7h.jpg"></video>
+                            <h4 class="font-bold">Ana Karolina</h4>
+                            <p class="text-sm text-stone-600">"A comunidade do SLAP é fantástica. Fiz amigos e aprendi a me comunicar de verdade."</p>
+                        </div>
+                         <div>
+                            <video controls class="testimonial-video mb-4" src="https://res.cloudinary.com/dqfi22uz0/video/upload/v1749863503/dany_soares_lp7w6y.mov" poster="https://res.cloudinary.com/dqfi22uz0/video/upload/so_0/v1749863503/dany_soares_lp7w6y.jpg"></video>
+                            <h4 class="font-bold">Dany Soares</h4>
+                            <p class="text-sm text-stone-600">"O foco na conversação fez toda a diferença para mim. Perdi a vergonha de falar."</p>
+                        </div>
+                        <div>
+                            <video controls class="testimonial-video mb-4" src="https://res.cloudinary.com/dqfi22uz0/video/upload/v1749863519/beatriz_messias_erjssk.mov" poster="https://res.cloudinary.com/dqfi22uz0/video/upload/so_0/v1749863519/beatriz_messias_erjssk.jpg"></video>
+                            <h4 class="font-bold">Beatriz Messias</h4>
+                            <p class="text-sm text-stone-600">"O melhor investimento que fiz na minha carreira. O inglês abriu muitas portas!"</p>
+                        </div>
+                     </div>
+                </div>
+                <div x-show="currentPage === 'method'">
+                    <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-center">O Método SLAP</h2>
+                     <p class="text-center text-stone-600 mb-12 max-w-2xl mx-auto">Nossa abordagem é baseada em 4 pilares que garantem um aprendizado completo.</p>
+                     <div class="grid sm:grid-cols-2 gap-8">
+                        <div class="bg-[#F1D24B] p-6 rounded-xl"><h3 class="text-2xl font-bold mb-2 text-stone-900">Spark</h3><p class="text-stone-800">Despertamos o seu interesse com contexto real, humor e curiosidade, ativando seu conhecimento prévio para preparar o terreno do aprendizado.</p></div>
+                        <div class="bg-[#84C7DF] p-6 rounded-xl"><h3 class="text-2xl font-bold mb-2 text-stone-900">Learn</h3><p class="text-stone-800">O conteúdo é apresentado com clareza e uma estrutura inteligente. Aqui, você aprende a gramática e o vocabulário que realmente importam para a comunicação.</p></div>
+                        <div class="bg-[#8671D1] p-6 rounded-xl"><h3 class="text-2xl font-bold mb-2 text-white">Apply</h3><p class="text-stone-200">É hora da prática. Você aplica o que aprendeu em situações e atividades que simulam o mundo real, ganhando a confiança necessária para se expressar.</p></div>
+                        <div class="bg-[#FF5C3D] p-6 rounded-xl"><h3 class="text-2xl font-bold mb-2 text-white">Perform</h3><p class="text-stone-200">Você usa o inglês de forma espontânea e criativa em debates, apresentações e conversas, consolidando seu aprendizado e se preparando para o mundo.</p></div>
+                    </div>
+                </div>
+                 <div x-show="currentPage === 'history'">
+                    <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-center">Nossa História</h2>
+                    <p class="text-center text-stone-500">(Conteúdo sobre a história da escola, fundadores, valores e impacto será adicionado aqui)</p>
+                </div>
+                 <div x-show="currentPage === 'work'">
+                    <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-center">Trabalhe Conosco</h2>
+                    <p class="text-center text-stone-600 mb-8 max-w-2xl mx-auto">O SLAP está sempre em busca de profissionais apaixonados por educação, inovação e impacto real na vida das pessoas.</p>
+                    <form action="https://formspree.io/f/SEU_ID_FORM_TRABALHO" method="POST" class="space-y-4 max-w-lg mx-auto">
+                        <input type="hidden" name="_subject" value="Nova Candidatura de Trabalho SLAP">
+                        <div><label for="work-name" class="font-semibold">Nome completo</label><input type="text" id="work-name" name="name" required class="form-input mt-1"></div>
+                        <div><label for="work-email" class="font-semibold">E-mail</label><input type="email" id="work-email" name="email" required class="form-input mt-1"></div>
+                        <div><label for="work-area" class="font-semibold">Área de interesse</label><select id="work-area" name="area" class="form-input mt-1"><option>Professor</option><option>Atendimento</option><option>Suporte</option><option>Criação de conteúdo</option><option>Outros</option></select></div>
+                        <div><label for="work-link" class="font-semibold">Link do currículo (LinkedIn ou PDF)</label><input type="url" id="work-link" name="curriculo" required class="form-input mt-1" placeholder="https://linkedin.com/in/seu-perfil"></div>
+                        <div><label for="work-message" class="font-semibold">Mensagem (opcional)</label><textarea id="work-message" name="message" rows="4" class="form-input mt-1"></textarea></div>
+                        <div class="text-center"><button type="submit" class="button-primary bg-stone-800 text-white hover:bg-black">Enviar candidatura</button></div>
+                    </form>
+                </div>
+                 <div x-show="currentPage === 'creator'">
+                     <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-center">Seja um Creator SLAP</h2>
+                    <p class="text-center text-stone-600 mb-8 max-w-2xl mx-auto">Você é professor(a) ou creator de conteúdo de inglês e quer transformar sua influência em impacto real? Vem pro SLAP.</p>
+                     <div class="text-left max-w-2xl mx-auto bg-stone-50 p-6 rounded-xl mb-8">
+                         <h4 class="font-bold mb-2">Benefícios para Creators:</h4>
+                         <ul class="list-disc list-inside text-stone-600 space-y-1">
+                            <li>Parcerias pagas por turmas fechadas</li>
+                            <li>Apoio com produção de conteúdo</li>
+                            <li>Participação em campanhas exclusivas</li>
+                            <li>Formação com nosso método</li>
+                            <li>Espaço de destaque no site e redes sociais</li>
+                            <li>Networking com outros creators e professores</li>
+                            <li>Premiações e bônus por desempenho</li>
+                         </ul>
+                     </div>
+                    <form action="https://formspree.io/f/SEU_ID_FORM_CREATOR" method="POST" class="space-y-4 max-w-lg mx-auto">
+                        <input type="hidden" name="_subject" value="Nova Candidatura de Creator SLAP">
+                         <div><label for="creator-name" class="font-semibold">Nome</label><input type="text" id="creator-name" name="name" required class="form-input mt-1"></div>
+                        <div><label for="creator-email" class="font-semibold">E-mail</label><input type="email" id="creator-email" name="email" required class="form-input mt-1"></div>
+                        <div><label for="creator-insta" class="font-semibold">Instagram ou TikTok (@)</label><input type="text" id="creator-insta" name="instagram_tiktok" placeholder="@seu_usuario" required class="form-input mt-1"></div>
+                        <div><label for="creator-niche" class="font-semibold">Seu nicho (ex: inglês geral, IELTS, vocabulário, humor)</label><input type="text" id="creator-niche" name="nicho" class="form-input mt-1"></div>
+                         <div><label for="creator-portfolio" class="font-semibold">Link do portfólio (opcional)</label><input type="url" id="creator-portfolio" name="portfolio" class="form-input mt-1"></div>
+                        <div><label for="creator-why" class="font-semibold">Por que quer ser um Creator do SLAP?</label><textarea id="creator-why" name="why_slap" rows="4" class="form-input mt-1"></textarea></div>
+                        <div class="text-center"><button type="submit" class="button-primary bg-stone-800 text-white hover:bg-black">Enviar</button></div>
+                    </form>
+                </div>
+                 <!-- Placeholder para páginas não preenchidas -->
+                 <div x-show="!['inicio', 'plans', 'testimonials', 'method', 'history', 'work', 'creator'].includes(currentPage)">
+                     <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-center capitalize" x-text="currentPage.replace('-', ' ')"></h2>
+                     <p class="text-center text-stone-500">(Conteúdo para esta secção será adicionado em breve)</p>
+                 </div>
+             </div>
+        </div>
+    </main>
+
+    <!-- Modal de Inscrição -->
+    <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4" style="display: none;">
+        <div @click.outside="isModalOpen = false" class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md">
+            <h3 class="text-2xl font-bold text-center mb-2">Quero me inscrever!</h3>
+            <p class="text-center text-stone-600 mb-6">Preencha seus dados para garantir sua vaga no <span x-text="selectedPlan" class="font-semibold"></span>.</p>
+             <form action="https://formspree.io/f/SEU_ID_FORM_PLANOS" method="POST" class="space-y-4">
+                <input type="hidden" name="plano_selecionado" :value="selectedPlan">
+                <input type="hidden" name="_subject" :value="`Novo Interesse no ${selectedPlan}!`">
+                <div>
+                    <label for="modal-name" class="font-semibold text-sm">Nome</label>
+                    <input type="text" id="modal-name" name="name" required class="form-input mt-1">
+                </div>
+                <div>
+                    <label for="modal-email" class="font-semibold text-sm">E-mail</label>
+                    <input type="email" id="modal-email" name="email" required class="form-input mt-1">
+                </div>
+                <div>
+                    <label for="modal-whatsapp" class="font-semibold text-sm">WhatsApp (com DDD)</label>
+                    <input type="tel" id="modal-whatsapp" name="whatsapp" required placeholder="(XX) XXXXX-XXXX" class="form-input mt-1">
+                </div>
+                <div class="pt-4 flex justify-end gap-4">
+                    <button type="button" @click="isModalOpen = false" class="text-stone-600 font-semibold px-4 py-2 rounded-lg hover:bg-stone-100">Cancelar</button>
+                    <button type="submit" class="button-primary bg-stone-800 text-white hover:bg-black border-stone-800">Enviar Interesse</button>
+                </div>
+             </form>
+        </div>
+    </div>
+
+
+    <!-- Rodapé -->
+    <footer class="bg-stone-900 text-stone-400 py-6 mt-16">
+        <div class="container mx-auto px-6 flex flex-col sm:flex-row justify-between items-center text-center sm:text-left">
+            <div class="flex items-center gap-4 mb-4 sm:mb-0">
+                <img src="https://res.cloudinary.com/dqfi22uz0/image/upload/v1749543469/SLAP_FAVICON_AMARELO_coilvj.png" alt="SLAP Mini Logo" class="h-8 w-8">
+                <div class="text-sm">
+                    © 2024 SLAP Inglês.<br>Todos os direitos reservados.
+                </div>
+            </div>
+            <div class="flex gap-6 items-center">
+                <a href="https://www.youtube.com/@slapingles" target="_blank" rel="noopener noreferrer" class="text-stone-400 hover:text-white transition-colors">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2A29 29 0 0 0 23 11.75a29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+                </a>
+                <a href="https://www.instagram.com/slapingles" target="_blank" rel="noopener noreferrer" class="text-stone-400 hover:text-white transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                </a>
+                <a href="https://www.tiktok.com/@slapingles" target="_blank" rel="noopener noreferrer" class="text-stone-400 hover:text-white transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
