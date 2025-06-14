@@ -87,7 +87,7 @@
             position: absolute;
             top: 0;
             bottom: 0;
-            width: 100px;
+            width: 50px;
             z-index: 2;
         }
         .slider::before {
@@ -97,6 +97,11 @@
         .slider::after {
             right: 0;
             background: linear-gradient(to left, #fafaf9 0%, rgba(250, 250, 249, 0) 100%);
+        }
+        @media (max-width: 768px) {
+            .slider::before, .slider::after {
+                display: none;
+            }
         }
         .slide-track {
             animation: scroll 30s linear infinite;
@@ -207,8 +212,8 @@
             <div x-show="currentPage === 'inicio'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100">
                 <!-- Hero Banner -->
                 <section class="bg-[#F1D24B]">
-                    <div class="container mx-auto px-6 text-center py-20 md:py-32">
-                        <h1 class="text-5xl md:text-7xl leading-tight text-stone-900">Sua fluência começa no SLAP.</h1>
+                    <div class="container mx-auto px-6 text-center py-16 md:py-24">
+                        <h1 class="text-4xl sm:text-5xl md:text-7xl leading-tight text-stone-900">Sua fluência começa no SLAP.</h1>
                         <div class="mt-8">
                             <a href="https://wa.me/message/VJROWLFO5Z5KF1" target="_blank" class="button-primary text-lg bg-stone-900 text-white border-stone-900 hover:bg-black hover:border-black">
                                 Fale com a gente
@@ -219,12 +224,12 @@
                 
                 <div class="container mx-auto px-6 mt-12 space-y-12">
                     <section>
-                         <div class="bg-white p-8 md:p-12 rounded-3xl shadow-lg border border-stone-200">
-                            <h2 class="text-4xl md:text-5xl mb-12 text-center">Planos para a Sua Evolução</h2>
+                         <div class="bg-[#84C7DF] p-6 sm:p-8 md:p-12 rounded-3xl shadow-lg">
+                            <h2 class="text-3xl sm:text-4xl md:text-5xl mb-10 text-center text-white">Planos para a Sua Evolução</h2>
                             <div class="flex flex-col md:flex-row gap-8 items-stretch">
-                                <div class="md:w-1/2 bg-[#84C7DF] text-stone-900 p-8 rounded-2xl flex flex-col text-center">
-                                    <h3 class="text-4xl">Plano Turma</h3>
-                                    <p class="text-5xl font-extrabold my-4 font-sans">R$250<span class="text-xl font-bold text-stone-700">/mês</span></p>
+                                <div class="md:w-1/2 bg-stone-50 text-stone-900 p-6 sm:p-8 rounded-2xl flex flex-col text-center shadow-md">
+                                    <h3 class="text-3xl sm:text-4xl">Plano Turma</h3>
+                                    <p class="text-4xl sm:text-5xl font-extrabold my-4 font-sans">R$250<span class="text-lg sm:text-xl font-bold text-stone-700">/mês</span></p>
                                     <ul class="space-y-2 text-stone-800 text-left mx-auto mb-6 flex-grow font-medium">
                                         <li class="flex items-center"><svg class="w-5 h-5 text-stone-800 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>36 aulas ao vivo</li>
                                         <li class="flex items-center"><svg class="w-5 h-5 text-stone-800 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>Turmas com até 10 alunos</li>
@@ -232,15 +237,15 @@
                                     </ul>
                                     <button @click="isModalOpen = true; selectedPlan = 'Plano Turma'" class="button-primary justify-center bg-stone-800 text-white hover:bg-black border-stone-800">Quero este</button>
                                 </div>
-                                 <div class="md:w-1/2 bg-[#FF5C3D] text-white p-8 rounded-2xl flex flex-col text-center">
+                                 <div class="md:w-1/2 bg-stone-50 text-stone-900 p-6 sm:p-8 rounded-2xl flex flex-col text-center shadow-md">
                                     <h3 class="text-4xl">Plano VIP</h3>
-                                    <p class="text-5xl font-extrabold my-4 font-sans">R$516<span class="text-xl font-bold text-stone-200">/mês</span></p>
-                                     <ul class="space-y-2 text-stone-100 text-left mx-auto mb-6 flex-grow font-medium">
-                                        <li class="flex items-center"><svg class="w-5 h-5 text-white mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>Aulas individuais e flexíveis</li>
-                                        <li class="flex items-center"><svg class="w-5 h-5 text-white mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>Foco nos seus objetivos</li>
-                                        <li class="flex items-center"><svg class="w-5 h-5 text-white mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>Acompanhamento personalizado</li>
+                                    <p class="text-5xl font-extrabold my-4 font-sans">R$516<span class="text-xl font-bold text-stone-700">/mês</span></p>
+                                     <ul class="space-y-2 text-stone-800 text-left mx-auto mb-6 flex-grow font-medium">
+                                        <li class="flex items-center"><svg class="w-5 h-5 text-stone-800 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>Aulas individuais e flexíveis</li>
+                                        <li class="flex items-center"><svg class="w-5 h-5 text-stone-800 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>Foco nos seus objetivos</li>
+                                        <li class="flex items-center"><svg class="w-5 h-5 text-stone-800 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>Acompanhamento personalizado</li>
                                     </ul>
-                                    <button @click="isModalOpen = true; selectedPlan = 'Plano VIP'" class="button-primary justify-center bg-white text-stone-900 border-white hover:bg-stone-200 hover:border-stone-200">Quero este</button>
+                                    <button @click="isModalOpen = true; selectedPlan = 'Plano VIP'" class="button-primary justify-center">Quero este</button>
                                 </div>
                             </div>
                         </div>
@@ -248,7 +253,7 @@
 
                      <section>
                         <div class="bg-yellow-100 text-stone-800 p-8 rounded-3xl flex flex-col md:flex-row justify-center items-center gap-6">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-yellow-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2v-5"></path></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 md:h-16 md:w-16 text-yellow-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2v-5"></path></svg>
                             <h2 class="title-dm-sans text-3xl md:text-5xl text-center md:text-left">Estude com os melhores professores da internet</h2>
                         </div>
                         <div class="slider mt-8">
