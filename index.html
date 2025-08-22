@@ -89,48 +89,69 @@
             <div class="container mx-auto px-6">
                 <div class="bg-gray-800 rounded-lg shadow-2xl p-8 md:p-12 max-w-4xl mx-auto">
                     <h2 class="text-4xl font-bold text-center mb-8">Faça sua <span class="text-amber-400">Matrícula</span> Agora!</h2>
-                    <form id="enrollment-form" class="space-y-6">
+                    
+                    <!-- O formulário agora envia para o Formspree. -->
+                    <form id="enrollment-form" action="https://formspree.io/f/contato@slapingles.com" method="POST" class="space-y-6">
                         <!-- Campos do formulário -->
                         <div>
                             <label for="fullName" class="block text-sm font-medium text-gray-300">Nome Completo</label>
-                            <input type="text" id="fullName" name="fullName" class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-amber-400" required>
+                            <input type="text" id="fullName" name="Nome" class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-amber-400" required>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label for="email" class="block text-sm font-medium text-gray-300">E-mail</label>
-                                <input type="email" id="email" name="email" class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-amber-400" required>
+                                <input type="email" id="email" name="Email" class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-amber-400" required>
                             </div>
                             <div>
                                 <label for="phone" class="block text-sm font-medium text-gray-300">Telefone</label>
-                                <input type="tel" id="phone" name="phone" class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-amber-400" required>
+                                <input type="tel" id="phone" name="Telefone" class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-amber-400" required>
                             </div>
                         </div>
                         <div>
                             <label for="schedule" class="block text-sm font-medium text-gray-300">Escolha o melhor horário</label>
-                            <select id="schedule" name="schedule" class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-amber-400">
-                                <option>Segunda e Quarta - 19:00</option>
-                                <option>Terça e Quinta - 09:00</option>
-                                <option>Sexta - 14:00 (Intensivo)</option>
-                                <option>Sábado - 10:00</option>
+                            <select id="schedule" name="Horário Desejado" class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-amber-400">
+                                <option>Horário 1AR: ter/qui 15h às 16h</option>
+                                <option>Horário 2AR: ter/qui 21h às 22h</option>
+                                <option>Horário 3V: seg/qua 15h às 16h</option>
+                                <option>Horário 4V: ter/qui 14h às 15h</option>
+                                <option>Horário 5F: seg/qua 11h às 12h</option>
+                                <option>Horário 6F: ter/qui 11h às 12h</option>
+                                <option>Horário 7AN: seg/qua 14h às 15h</option>
+                                <option>Horário 8AN: ter/qui 14h às 15h</option>
+                                <option>Horário 9AN: ter/qui 16h às 17h</option>
                             </select>
                         </div>
+
+                        <!-- Caixa de Observação -->
+                        <div class="bg-gray-700/50 border-l-4 border-amber-400 p-4 rounded-r-lg">
+                            <h4 class="font-bold text-lg text-amber-400">O que você garante com esta oferta:</h4>
+                            <ul class="list-disc list-inside mt-2 text-gray-300 space-y-1">
+                                <li>Pacote de <span class="font-semibold">40 aulas VIPs</span> (individuais).</li>
+                                <li>Aulas <span class="font-semibold">ao vivo</span>, via Zoom.</li>
+                                <li>Prazo de <span class="font-semibold">6 meses</span> para utilizar suas aulas.</li>
+                                <li>Acompanhamento personalizado com seu professor.</li>
+                                <li><span class="font-semibold">Teste de nível</span> gratuito.</li>
+                                <li>Todo o <span class="font-semibold">material didático</span> incluso.</li>
+                            </ul>
+                        </div>
+
                         <!-- Campo de Cupom -->
                         <div>
                             <label for="coupon" class="block text-sm font-medium text-gray-300">Cupom de Desconto</label>
                             <div class="mt-1 flex rounded-md shadow-sm">
-                                <input type="text" id="coupon" name="coupon" placeholder="Insira o cupom SECRETO" class="flex-1 block w-full bg-gray-700 border-gray-600 rounded-none rounded-l-md py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-amber-400">
+                                <input type="text" id="coupon" name="Cupom Utilizado" placeholder="Insira o cupom SECRETO" class="flex-1 block w-full bg-gray-700 border-gray-600 rounded-none rounded-l-md py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-amber-400">
                                 <button type="button" id="apply-coupon-btn" class="inline-flex items-center px-4 py-2 border border-l-0 border-gray-600 bg-gray-600 text-gray-300 rounded-r-md hover:bg-gray-500">
                                     Aplicar
                                 </button>
                             </div>
                             <p id="coupon-message" class="text-sm mt-2 h-4"></p>
                         </div>
-                        <!-- 5. Integração de Pagamento -->
+                        <!-- 5. Botão de Submissão -->
                         <div class="text-center pt-4">
-                            <button id="payment-btn" type="button" disabled class="w-full md:w-auto inline-block bg-amber-400 text-gray-900 font-bold py-4 px-12 rounded-full text-xl transition-all transform disabled:opacity-50 disabled:cursor-not-allowed enabled:hover:bg-amber-300 enabled:hover:scale-105">
-                                Pagar com Cartão de Crédito
+                            <button id="submit-btn" type="submit" disabled class="w-full md:w-auto inline-block bg-amber-400 text-gray-900 font-bold py-4 px-12 rounded-full text-xl transition-all transform disabled:opacity-50 disabled:cursor-not-allowed enabled:hover:bg-amber-300 enabled:hover:scale-105">
+                                PEGAR PROMOÇÃO SECRETA
                             </button>
-                            <p class="text-sm text-gray-400 mt-4">Pagamento seguro e processado por parceiros.</p>
+                            <p class="text-sm text-gray-400 mt-4">Você receberá o contato da nossa equipe em breve.</p>
                             <a href="https://wa.me/message/VJROWLFO5Z5KF1" target="_blank" class="mt-6 w-full md:w-auto inline-flex items-center justify-center bg-green-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-green-600 transition-colors">
                                 <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.267.655 4.398 1.803 6.12l-1.214 4.433 4.572-1.196z"/></svg>
                                 Dúvidas? Fale no WhatsApp
@@ -162,22 +183,11 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Lógica para o menu mobile
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            
-            // O botão do menu mobile não existe mais, então verificamos se ele existe antes de adicionar o evento
-            if(mobileMenuButton) {
-                mobileMenuButton.addEventListener('click', () => {
-                    mobileMenu.classList.toggle('hidden');
-                });
-            }
-
             // Lógica do Cupom de Desconto e Botão de Pagamento
             const applyCouponBtn = document.getElementById('apply-coupon-btn');
             const couponInput = document.getElementById('coupon');
             const couponMessage = document.getElementById('coupon-message');
-            const paymentBtn = document.getElementById('payment-btn');
+            const submitBtn = document.getElementById('submit-btn');
 
             const validCoupons = [
                 "PROMOVICTOR",
@@ -189,7 +199,6 @@
                 "PROMOSLAP",
                 "PROMOPAULO"
             ]; // Lista de cupons válidos
-            const discountPriceLink = "https://pagamento.exemplo.com/valor-com-desconto";
 
             applyCouponBtn.addEventListener('click', () => {
                 const enteredCoupon = couponInput.value.trim().toUpperCase();
@@ -198,12 +207,12 @@
                     couponMessage.textContent = "Cupom aplicado com sucesso!";
                     couponMessage.classList.remove('text-red-400');
                     couponMessage.classList.add('text-green-400');
-                    paymentBtn.disabled = false; // Habilita o botão de pagamento
+                    submitBtn.disabled = false; // Habilita o botão de submissão
                 } else {
                     couponMessage.textContent = "Cupom inválido.";
                     couponMessage.classList.remove('text-green-400');
                     couponMessage.classList.add('text-red-400');
-                    paymentBtn.disabled = true; // Mantém ou desabilita o botão
+                    submitBtn.disabled = true; // Mantém ou desabilita o botão
                 }
             });
 
@@ -211,14 +220,8 @@
             couponInput.addEventListener('input', () => {
                 if (couponInput.value.trim() === '') {
                     couponMessage.textContent = "";
-                    paymentBtn.disabled = true; 
+                    submitBtn.disabled = true; 
                 }
-            });
-
-            // Ação de clique do botão de pagamento
-            paymentBtn.addEventListener('click', () => {
-                // Esta função só será chamada se o botão não estiver desabilitado
-                window.open(discountPriceLink, '_blank');
             });
         });
     </script>
